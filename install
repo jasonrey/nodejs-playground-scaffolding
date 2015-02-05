@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+var print = require("sys").print,
+    exec = require("child_process").exec,
+    fs = require("fs"),
+    root = __dirname;
+
+print("This will create a symlink of 'playground' in /usr/bin. You might need to provide a sudo access.\n");
+
+if (fs.existsSync("/usr/bin/playground")) {
+    print("Error. the file /usr/bin/playground already exist.");
+    return;
+}
+
+exec("sudo ln -s " + root + "/playground /usr/bin/", function() {
+    print("Succeeded!\n");
+});
