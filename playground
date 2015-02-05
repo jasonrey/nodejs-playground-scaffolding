@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+var fs = require("fs"),
+    print = require("sys").print,
+    exec = require("child_process").exec,
+    path = require("path"),
+    root = __dirname,
+    pwd = process.env.PWD;
+
+if (process.argv.length == 2) {
+    print("Requires 1 argument to define the folder name.\n");
+    return;
+}
+
+var name = process.argv[2],
+    path = pwd + "/" + name;
+
+if (!fs.existsSync(path)) {
+    fs.mkdirSync(path);
+}
+
+print("Copying files.\n");
+
+exec("cp -Rf " + root + "/base/* " + path, function() {
+    print("Done.\n");
+
+    print("Installing npm packages.\n");
+
+    exec("cd " + path + " && npm install", function() {
+        print("Installed npm packages.\n");
+
+        print("Installing bower packages.\n");
+
+        exec("cd " + path + " && " + path + "/node_modules/.bin/bower install", function() {
+            print("Installed bower package.\n");
+
+            print("Run 'cd " + path + " && node .' to start server.\n");
+        });
+    });
+});
