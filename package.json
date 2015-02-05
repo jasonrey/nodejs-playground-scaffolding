@@ -1,0 +1,21 @@
+{
+  "name": "nodejs-playground-scaffolding",
+  "version": "1.0.0",
+  "description": "Nodejs playground scaffolding to generate the base files.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://jasonrey@github.com/jasonrey/nodejs-playground-scaffolding.git"
+  },
+  "author": "Jason Rey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jasonrey/nodejs-playground-scaffolding/issues"
+  },
+  "homepage": "https://github.com/jasonrey/nodejs-playground-scaffolding",
+  "dependencies": {
+  }
+}
