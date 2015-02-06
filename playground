@@ -26,12 +26,14 @@ exec("cp -rf " + root + "/base/. " + path, function() {
 
     print("Installing npm packages.\n");
 
-    exec("cd " + path + " && npm install", function() {
+    process.chdir(path);
+
+    exec("npm install", function() {
         print("Installed npm packages.\n");
 
         print("Installing bower packages.\n");
 
-        exec("cd " + path + " && " + path + "/node_modules/.bin/bower install", function() {
+        exec("node_modules/.bin/bower install", function() {
             print("Installed bower package.\n");
 
             print("Run 'cd " + path + " && node .' to start server.\n");
