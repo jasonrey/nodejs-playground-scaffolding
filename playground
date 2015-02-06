@@ -21,7 +21,7 @@ if (!fs.existsSync(path)) {
 
 print("Copying files.\n");
 
-exec("cp -Rf " + root + "/base/* " + path, function() {
+exec("cp -rf " + root + "/base/. " + path, function() {
     print("Done.\n");
 
     print("Installing npm packages.\n");
