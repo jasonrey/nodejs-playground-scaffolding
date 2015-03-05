@@ -9,6 +9,7 @@ app.set "views", pwd + "/views"
 app.set "view engine", "jade"
 
 app.use express.static pwd + "/public"
+app.use express.static pwd + "/assets"
 
 app.use "/", require pwd + "/routers/index.coffee"
 
