@@ -36,7 +36,13 @@ exec("cp -rf " + root + "/base/. " + path, function() {
         exec("node_modules/.bin/bower install", function() {
             print("Installed bower package.\n");
 
-            print("Run 'cd " + path + " && node .' to start server.\n");
+            print("Building development environment.\n");
+
+            exec("cake development", function() {
+                print("Completed development environment.\n");
+
+                print("Run 'cd " + path + " && node .' to start server.\n");
+            });
         });
     });
 });
