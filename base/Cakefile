@@ -15,7 +15,6 @@ libraries =
     "js": [
         "less/dist/less.min.js"
         "jquery/dist/jquery.min.js"
-        "jquery/dist/jquery.min.map"
         "coffee-script/extras/coffee-script.js"
     ]
     "css": [
