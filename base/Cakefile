@@ -27,6 +27,11 @@ task "build",
         invoke "copyLibraries"
         invoke "copyAssets"
 
+task "development",
+    "Development build",
+    ->
+        invoke "copyLibraries"
+
 task "createFolders",
     "Creates the necessary folders for further process",
     ->
