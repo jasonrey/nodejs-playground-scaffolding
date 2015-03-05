@@ -54,5 +54,3 @@ task "copyAssets",
         invoke "createFolders"
 
         exec "cp -Rf #{pwd}/assets/* #{pwd}/public/"
-
-invoke "build"
