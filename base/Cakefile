@@ -44,6 +44,16 @@ task "phpbuild",
         invoke "compilecss"
         invoke "compileHTML"
 
+task "phpbeautybuild",
+    "PHP build beautifully.",
+    ->
+        invoke "copyLibraries"
+        invoke "copyLibraries"
+        invoke "copyImages"
+        invoke "compilebeautyjs"
+        invoke "compilebeautycss"
+        invoke "compileHTML"
+
 task "prepareFolders",
     "Creates the necessary folders for further process.",
     ->
@@ -96,7 +106,7 @@ task "compilecss",
 task "compilebeautycss",
     "Compiles less to css beautifully.",
     ->
-        invoke "preparesFolders"
+        invoke "prepareFolders"
         for file in fs.readdirSync "#{pwd}/assets/less"
             filename = file.slice 0, -5
             exec "lessc #{pwd}/assets/less/#{file} > #{pwd}/public/css/#{filename}.css"
