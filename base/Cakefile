@@ -18,6 +18,9 @@ libraries =
     "css": [
         "bootstrap/dist/css/bootstrap.min.css"
     ]
+    "fonts": [
+        "bootstrap/fonts/glyphicons-halflings-regular.woff"
+    ]
 
 task "development",
     "Development build.",
@@ -59,9 +62,8 @@ task "prepareFolders",
 task "copyLibraries",
     "Copy static libraries to public folder.",
     ->
-        invoke "prepareFolders"
-
         for type, files of libraries
+            fs.mkdirSync "#{pwd}/public/#{type}" unless fs.existsSync "#{pwd}/public/#{type}"
             for file in files
                 exec "cp -f #{pwd}/bower_components/#{file} #{pwd}/public/#{type}"
 
