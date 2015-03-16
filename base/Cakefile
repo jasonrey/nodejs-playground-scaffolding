@@ -37,7 +37,7 @@ task "production",
         invoke "compilejs"
         invoke "compilecss"
 
-task "phpbuild",
+task "phpBuild",
     "PHP build.",
     ->
         invoke "copyLibraries"
@@ -47,7 +47,7 @@ task "phpbuild",
         invoke "compileHTML"
         invoke "copyAPI"
 
-task "phpbeautybuild",
+task "phpBeautyBuild",
     "PHP build beautifully.",
     ->
         invoke "copyLibraries"
@@ -88,7 +88,7 @@ task "copyImages",
         invoke "prepareFolders"
         exec "cp #{pwd}/assets/images/* #{pwd}/public/images/"
 
-task "compilejs",
+task "compileJS",
     "Compiles coffeescript to javascript.",
     ->
         invoke "prepareFolders"
@@ -99,7 +99,7 @@ task "compilejs",
             for file in fs.readdirSync "#{pwd}/assets/js"
                 exec "uglifyjs --unsafe --output #{pwd}/public/js/#{file} #{pwd}/assets/js/#{file}"
 
-task "compilebeautyjs",
+task "compileBeautyJS",
     "Compiles coffeescript to javascript.",
     ->
         invoke "prepareFolders"
@@ -109,7 +109,7 @@ task "compilebeautyjs",
 
         exec "coffee --compile --bare --output #{pwd}/public/js #{pwd}/assets/coffee"
 
-task "compilecss",
+task "compileCSS",
     "Compiles less to css.",
     ->
         invoke "prepareFolders"
@@ -117,7 +117,7 @@ task "compilecss",
             filename = file.slice 0, -5
             exec "lessc -x #{pwd}/assets/less/#{file} > #{pwd}/public/css/#{filename}.css"
 
-task "compilebeautycss",
+task "compileBeautyCSS",
     "Compiles less to css beautifully.",
     ->
         invoke "prepareFolders"
@@ -152,3 +152,17 @@ task "copyAPI",
     ->
         invoke "prepareFolders"
         exec "cp #{pwd}/assets/api/* #{pwd}/public/api/"
+
+task "copyExternalLibraries",
+    "Copies external libraries to assets and public folder."
+    ->
+        invoke "prepareFolders"
+
+        unless fs.existsSync "#{pwd}/external_components"
+            for folder in fs.readdirSync "#{pwd}/external_components"
+                for type in fs.readdirSync "#{pwd}/external_components/#{folder}"
+                    fs.mkdirSync "#{pwd}/public/#{type}" unless fs.existsSync "#{pwd}/public/#{type}"
+                    fs.mkdirSync "#{pwd}/assets/#{type}" unless fs.existsSync "#{pwd}/assets/#{type}"
+
+                    exec "cp #{pwd}/external_components/#{folder}/#{type}/* #{pwd}/public/#{type}/"
+                    exec "cp #{pwd}/external_components/#{folder}/#{type}/* #{pwd}/assets/#{type}/"
