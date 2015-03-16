@@ -19,10 +19,6 @@ libraries =
     "css": [
         "bootstrap/dist/css/bootstrap.min.css"
     ]
-    "fonts": [
-        "bootstrap/fonts/glyphicons-halflings-regular.woff"
-        "bootstrap/fonts/glyphicons-halflings-regular.woff2"
-    ]
 
 task "development",
     "Development build.",
@@ -45,6 +41,7 @@ task "phpBuild",
         invoke "compilejs"
         invoke "compilecss"
         invoke "compileHTML"
+        invoke "copyExternalLibraries"
         invoke "copyAPI"
 
 task "phpBeautyBuild",
@@ -55,6 +52,7 @@ task "phpBeautyBuild",
         invoke "compilebeautyjs"
         invoke "compilebeautycss"
         invoke "compileHTML"
+        invoke "copyExternalLibraries"
         invoke "copyAPI"
 
 task "prepareFolders",
@@ -151,14 +149,14 @@ task "copyAPI",
     "Copies additional API files.",
     ->
         invoke "prepareFolders"
-        exec "cp #{pwd}/assets/api/* #{pwd}/public/api/"
+        exec "cp #{pwd}/assets/api/* #{pwd}/public/api/" if fs.existsSync "#{pwd}/assets/api"
 
 task "copyExternalLibraries",
     "Copies external libraries to assets and public folder."
     ->
         invoke "prepareFolders"
 
-        unless fs.existsSync "#{pwd}/external_components"
+        if fs.existsSync "#{pwd}/external_components"
             for folder in fs.readdirSync "#{pwd}/external_components"
                 for type in fs.readdirSync "#{pwd}/external_components/#{folder}"
                     fs.mkdirSync "#{pwd}/public/#{type}" unless fs.existsSync "#{pwd}/public/#{type}"
